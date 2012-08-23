@@ -36,7 +36,8 @@ Gem::Specification.new do |s|
     "lib/state_shifter/mountable/instance_methods.rb",
     "lib/state_shifter/state.rb",
     "spec/spec_helper.rb",
-    "spec/state_shifter_spec.rb"
+    "spec/state_shifter_spec.rb",
+    "state_shifter.gemspec"
   ]
   s.homepage = "http://github.com/sardaukar/state_shifter"
   s.licenses = ["MIT"]
