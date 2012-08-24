@@ -2,6 +2,14 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'rspec'
 require 'state_shifter'
+require 'simplecov'
+
+if ENV['COVERAGE']
+  SimpleCov.start do
+    add_filter 'spec'
+    add_filter 'lib'
+  end
+end
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.
