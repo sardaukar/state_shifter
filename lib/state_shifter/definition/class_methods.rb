@@ -19,7 +19,7 @@ module StateShifter
               next_states_hash   = {}
               check_guards  = options.has_key?(:check_guards)
 
-              self.class.state_machine_definition.states[from_state.to_sym].events.each do |event_name, event_def|
+              definition.get(:state, from_state).events.each do |event_name, event_def|
                 if event_def.has_guards? && check_guards
                   next if @subject.send(:check_guards, event_name).is_a?(Array)
                 end
@@ -34,11 +34,11 @@ module StateShifter
               current_state == state_name
             end
 
-            state_definition.events.each do |event_name, event_definition|
+            @state_machine_definition.events.each do |event_name, event_definition|
 
               define_method "can_#{event_name}?" do
               
-                this_event = self.class.state_machine_definition.events[event_name.to_sym]
+                this_event = definition.get(:event, event_name)
                 
                 current_state == this_event.from && !check_guards(event_name).is_a?(Array) 
               
