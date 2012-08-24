@@ -4,21 +4,14 @@ module StateShifter
 
     module InstanceMethods
 
-      class ::StateShifter::TransitionHalted < Exception ; end
-      class ::StateShifter::GuardMethodUndefined < Exception ; end
-      class ::StateShifter::GuardNotSatisfied < Exception ; end
-      class ::StateShifter::CallbackMethodNotDefined < Exception ; end
-      class ::StateShifter::RedifiningEvent < Exception ; end
-      class ::StateShifter::RedifiningState < Exception ; end
-
-      attr_accessor :current_state, :definition
+      attr_accessor :current_state, :state_machine_definition
 
       def initialize
-        @current_state = definition.initial_state.name.to_sym
+        @current_state = state_machine_definition.initial_state.name.to_sym
         @subject = self
       end
 
-      def definition
+      def state_machine_definition
         self.class.state_machine_definition
       end
 
@@ -39,19 +32,15 @@ module StateShifter
       end
 
       def initial_state
-        definition.initial_state.name
+        state_machine_definition.initial_state.name
       end
 
-      #######
-      private
-      #######
-
       def names_for what
-        definition.send(what).collect {|name, definition| name }
+        state_machine_definition.send(what).collect {|name, definition| name }
       end
 
       def check_event_callbacks event_name
-        event_def = definition.get(:event, event_name)
+        event_def = state_machine_definition.get(:event, event_name)
         begin
           @subject.send event_def.callback
         rescue NoMethodError
@@ -60,7 +49,7 @@ module StateShifter
       end
 
       def current_state_def
-        definition.get(:state, @current_state)
+        state_machine_definition.get(:state, @current_state)
       end
 
       def call_state_entry_callback trigger, old_state
@@ -79,15 +68,17 @@ module StateShifter
 
       def transition args
         _start = Time.now
+
         # BOOP!
         old_state = @current_state
         @current_state = args[:to].to_sym
+        #
 
-        check_event_callbacks(args[:trigger]) if definition.get(:event, args[:trigger]).has_callback?
+        check_event_callbacks(args[:trigger]) if state_machine_definition.get(:event, args[:trigger]).has_callback?
 
         call_state_entry_callback(args[:trigger], old_state) if current_state_def.has_entry_callback?
         
-        @subject.instance_exec(old_state, @current_state, args[:trigger].to_sym, (Time.now - _start), &definition.on_transition_proc) if definition.has_on_transition_proc?
+        @subject.instance_exec(old_state, @current_state, args[:trigger].to_sym, (Time.now - _start), &state_machine_definition.on_transition_proc) if state_machine_definition.has_on_transition_proc?
         true
       end
 
@@ -96,7 +87,7 @@ module StateShifter
       end
 
       def check_guards event_name
-        event = definition.get(:event, event_name)
+        event = state_machine_definition.get(:event, event_name)
 
         if event.has_guards?
           event.guards.each do |guard|
