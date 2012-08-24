@@ -6,10 +6,7 @@ module StateShifter
 
       def state_machine &definition
         @state_machine_definition = Contents.new(&definition)
-        add_methods
-      end
-
-      def add_methods
+        
         @state_machine_definition.states.each do |state_name, state_definition|
           
           module_eval do

@@ -20,9 +20,11 @@ shared_examples_for 'a simple state machine' do
 
     @state_machine.submit
     @state_machine.initial_state.should == :new
+    @state_machine.current_state.should == :awaiting_review
   end
 
   it 'should transit between states properly' do
+    @state_machine.current_state.should == :new
     @state_machine.submit
     @state_machine.current_state.should == :awaiting_review
 
@@ -43,6 +45,7 @@ shared_examples_for 'a simple state machine' do
   end
 
   it 'should respect guard statements' do
+    @state_machine.current_state.should == :new
     @state_machine.submit
     @state_machine.review
 
@@ -54,6 +57,7 @@ shared_examples_for 'a simple state machine' do
   end
 
   it 'should know if a transition is possible' do
+    @state_machine.current_state.should == :new
     @state_machine.can_submit?.should be_true
 
     @state_machine.submit
@@ -67,6 +71,7 @@ shared_examples_for 'a simple state machine' do
   end
 
   it 'should properly indicate next states' do
+    @state_machine.current_state.should == :new
     @state_machine.next_states.should == [:awaiting_review]
     @state_machine.transitionable_states.should == [:awaiting_review]
 
