@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "state_shifter"
-  s.version = "0.6.0"
+  s.version = "0.7.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Bruno Antunes"]
@@ -25,6 +25,11 @@ Gem::Specification.new do |s|
     "README.md",
     "Rakefile",
     "VERSION",
+    "examples/advanced.rb",
+    "examples/malformed_events.rb",
+    "examples/malformed_states.rb",
+    "examples/mounted.rb",
+    "examples/simple.rb",
     "lib/state_shifter.rb",
     "lib/state_shifter/definition.rb",
     "lib/state_shifter/definition/class_methods.rb",
