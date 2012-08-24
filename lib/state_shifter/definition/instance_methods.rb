@@ -73,7 +73,7 @@ module StateShifter
             raise ::StateShifter::CallbackMethodNotDefined, proc_or_method_name
           end
         else
-          @subject.instance_exec(old_state, trigger, &proc_or_method_name)
+          @subject.instance_exec(old_state, trigger.to_sym, &proc_or_method_name)
         end        
       end
 
@@ -87,7 +87,7 @@ module StateShifter
 
         call_state_entry_callback(args[:trigger], old_state) if current_state_def.has_entry_callback?
         
-        @subject.instance_exec(old_state, @current_state, args[:trigger], (Time.now - _start), &definition.on_transition_proc) if definition.has_on_transition_proc?
+        @subject.instance_exec(old_state, @current_state, args[:trigger].to_sym, (Time.now - _start), &definition.on_transition_proc) if definition.has_on_transition_proc?
         true
       end
 

@@ -116,5 +116,31 @@ describe "StateShifter" do
       @advanced = Advanced.new
     end
 
+    it 'should complain about looping event callbacks not being defined' do
+      lambda { @advanced.start_date_changed }.should raise_error(StateShifter::CallbackMethodNotDefined, 'handle_start_date_changed')
+    end
+
+    it 'should call looping event callbacks' do
+      @advanced.stub!(:handle_start_date_changed)
+      
+      @advanced.should_receive(:handle_start_date_changed)
+      @advanced.start_date_changed
+    end
+
+    it 'state on_entry callbacks should work' do
+      # block
+      @advanced.should_receive(:running_entry).with(:initialized, :forced_start).and_return(nil)
+      @advanced.forced_start
+
+      # method name only
+      @advanced.should_receive(:send_notification_to_organizers)
+      @advanced.deadline_reached!
+    end
+
+    it 'the on_transition callback should work' do
+      @advanced.should_receive(:benchmark).with(:initialized, :running, :forced_start!, an_instance_of(Float)).and_return(nil)
+      @advanced.forced_start!
+    end
+
   end
 end
