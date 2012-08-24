@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "state_shifter"
   gem.homepage = "http://github.com/sardaukar/state_shifter"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{state_shifter is a gem that adds state machine behavior to a class}
+  gem.description = %Q{state_shifter is a gem that adds state machine behavior to a class}
   gem.email = "sardaukar.siet@gmail.com"
   gem.authors = ["Bruno Antunes"]
   # dependencies defined in Gemfile
