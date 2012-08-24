@@ -36,7 +36,7 @@ RSpec::Core::RakeTask.new(:rcov) do |spec|
   spec.pattern = 'spec/**/*_spec.rb'
 end
 
-task :default => :spec
+task :default => :rcov
 
 require 'yard'
 YARD::Rake::YardocTask.new
