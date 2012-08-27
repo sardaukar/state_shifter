@@ -2,7 +2,15 @@ module StateShifter
   module Definition
     module ClassMethods
 
-      attr_accessor :state_machine_definition
+      attr_accessor :state_machine_definition, :persist_attr_name
+
+      def persist_attribute attr_name
+        @persist_attr_name = attr_name.to_sym
+      end
+
+      def persist_attr_name
+        @persist_attr_name ||= :state
+      end
 
       def state_machine &definition
         @state_machine_definition = Contents.new(&definition)
@@ -18,7 +26,7 @@ module StateShifter
 
               state_machine_definition.get(:state, from_state).events.each do |event_name, event_def|
                 if event_def.has_guards? && check_guards
-                  next if @subject.send(:check_guards, event_name).is_a?(Array)
+                  next if self.send(:check_guards, event_name).is_a?(Array)
                 end
 
                 next_states_hash.merge!( event_def.to.nil? ? { from_state.to_sym => event_name } : { event_def.to => event_def.name } )

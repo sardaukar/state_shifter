@@ -1,14 +1,11 @@
 module StateShifter
-
   module Definition
-
     module InstanceMethods
 
       attr_accessor :current_state, :state_machine_definition
 
-      def initialize
-        @current_state = state_machine_definition.initial_state.name.to_sym
-        @subject = self
+      def current_state
+        @current_state ||=  state_machine_definition.initial_state.name.to_sym
       end
 
       def state_machine_definition
@@ -42,7 +39,7 @@ module StateShifter
       def check_event_callbacks event_name
         event_def = state_machine_definition.get(:event, event_name)
         begin
-          @subject.send event_def.callback
+          self.send event_def.callback
         rescue NoMethodError
           raise ::StateShifter::CallbackMethodNotDefined, event_def.callback
         end
@@ -57,12 +54,12 @@ module StateShifter
 
         if proc_or_method_name.is_a?(Symbol)
           begin
-            @subject.send proc_or_method_name  
+            self.send proc_or_method_name  
           rescue NoMethodError
             raise ::StateShifter::CallbackMethodNotDefined, proc_or_method_name
           end
         else
-          @subject.instance_exec(old_state, trigger.to_sym, &proc_or_method_name)
+          self.instance_exec(old_state, trigger.to_sym, &proc_or_method_name)
         end        
       end
 
@@ -78,7 +75,7 @@ module StateShifter
 
         call_state_entry_callback(args[:trigger], old_state) if current_state_def.has_entry_callback?
         
-        @subject.instance_exec(old_state, @current_state, args[:trigger].to_sym, (Time.now - _start), &state_machine_definition.on_transition_proc) if state_machine_definition.has_on_transition_proc?
+        self.instance_exec(old_state, @current_state, args[:trigger].to_sym, (Time.now - _start), &state_machine_definition.on_transition_proc) if state_machine_definition.has_on_transition_proc?
         true
       end
 
@@ -105,5 +102,4 @@ module StateShifter
 
     end
   end
-
 end
