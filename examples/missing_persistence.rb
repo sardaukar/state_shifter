@@ -1,7 +1,9 @@
-class MalformedPersistence
+class MissingPersistence < ActiveRecord::Base
   include StateShifter::Definition
 
   ### 
+
+  persist_attribute :lollies
 
   state_machine do
 
@@ -78,7 +80,6 @@ class MalformedPersistence
     end
   end
 
-  persist_attribute :lollies
 
   ###
 

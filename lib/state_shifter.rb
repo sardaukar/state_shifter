@@ -4,6 +4,7 @@ require 'state_shifter/definition'
 require 'state_shifter/definition/contents'
 require 'state_shifter/definition/class_methods'
 require 'state_shifter/definition/instance_methods'
+require 'state_shifter/definition/active_record_integration_methods'
 
 class ::StateShifter::TransitionHalted < Exception ; end
 class ::StateShifter::GuardMethodUndefined < Exception ; end

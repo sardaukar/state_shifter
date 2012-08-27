@@ -1,11 +1,14 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 require_relative '../examples/simple'
 require_relative '../examples/advanced'
+require_relative '../examples/review'
+require_relative '../examples/review_custom_persistence'
 
 shared_examples_for 'a simple state machine' do
   
   before(:each) do
     @state_machine = described_class.new
+    @state_machine.save if @state_machine.class < ActiveRecord::Base
   end
 
   it 'should have all states and events defined' do
@@ -19,6 +22,7 @@ shared_examples_for 'a simple state machine' do
 
     @state_machine.submit
     @state_machine.initial_state.should == :new
+
     @state_machine.current_state.should == :awaiting_review
   end
 
@@ -162,3 +166,60 @@ describe 'Advanced state machine functionality' do
 
 end
 
+describe Review do
+
+  before(:all) do
+    ActiveRecord::Migration.verbose = false
+
+    ActiveRecord::Base.establish_connection :adapter => 'sqlite3', :database => ':memory:'
+
+    ActiveRecord::Schema.define do
+      create_table :reviews do |t|
+        t.string    :current_state
+      end
+    end
+  end
+
+  it_should_behave_like 'a simple state machine'
+
+end
+
+describe ReviewCustomPersistence do
+
+  before(:all) do
+    ActiveRecord::Migration.verbose = false
+
+    ActiveRecord::Base.establish_connection :adapter => 'sqlite3', :database => ':memory:'
+
+    ActiveRecord::Schema.define do
+      create_table :review_custom_persistences do |t|
+        t.string    :stamp
+      end
+    end
+  end
+
+  it_should_behave_like 'a simple state machine'
+
+end
+
+describe 'Malformed persistence definition' do
+
+  before(:all) do
+    ActiveRecord::Migration.verbose = false
+
+    ActiveRecord::Base.establish_connection :adapter => 'sqlite3', :database => ':memory:'
+
+    ActiveRecord::Schema.define do
+      create_table :missing_persistences do |t|
+        t.string    :xyz
+      end
+    end
+  end
+
+  it 'should complain when the persist attribute is not present' do
+    require_relative '../examples/missing_persistence'
+    review_custom_persistence = MissingPersistence.new
+    lambda { review_custom_persistence.save }.should raise_error(StateShifter::Definition::StatePersistenceAttributeNotPresent)
+  end
+
+end

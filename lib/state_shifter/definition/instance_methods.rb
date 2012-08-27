@@ -3,7 +3,7 @@ module StateShifter
     module InstanceMethods
 
       def current_state
-        @current_state ||=  get_current_state
+        get_current_state
       end
 
       def get_current_state
@@ -19,11 +19,11 @@ module StateShifter
       end
 
       def next_states
-        _next_states current_state
+        _next_states get_current_state
       end
 
       def transitionable_states
-        _next_states current_state, {:check_guards => true}
+        _next_states get_current_state, {:check_guards => true}
       end
 
       def state_names
@@ -52,7 +52,7 @@ module StateShifter
       end
 
       def current_state_def
-        state_machine_definition.get(:state, current_state)
+        state_machine_definition.get(:state, get_current_state)
       end
 
       def call_state_entry_callback trigger, old_state
@@ -73,7 +73,7 @@ module StateShifter
         _start = Time.now
 
         # BOOP!
-        old_state = current_state
+        old_state = get_current_state
         set_current_state args[:to].to_sym
         #
 
@@ -81,7 +81,7 @@ module StateShifter
 
         call_state_entry_callback(args[:trigger], old_state) if current_state_def.has_entry_callback?
         
-        self.instance_exec(old_state, current_state, args[:trigger].to_sym, (Time.now - _start), &state_machine_definition.on_transition_proc) if state_machine_definition.has_on_transition_proc?
+        self.instance_exec(old_state, get_current_state, args[:trigger].to_sym, (Time.now - _start), &state_machine_definition.on_transition_proc) if state_machine_definition.has_on_transition_proc?
 
         true
       end
