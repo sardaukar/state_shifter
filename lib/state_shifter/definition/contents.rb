@@ -59,6 +59,12 @@ module StateShifter
         end
       end
 
+      def on_transition &proc_contents
+        @on_transition_proc = proc_contents
+      end
+
+      ### end of DSL methods
+
       def get key, what
         case key
         when :event
@@ -66,10 +72,6 @@ module StateShifter
         when :state
           @states[what.to_sym] || @states[what.to_s.gsub('!','').to_sym]
         end
-      end
-
-      def on_transition &proc_contents
-        @on_transition_proc = proc_contents
       end
 
       def has_on_transition_proc?
