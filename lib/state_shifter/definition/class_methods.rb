@@ -5,6 +5,7 @@ module StateShifter
       attr_accessor :state_machine_definition, :persist_attr_name
 
       def persist_attribute attr_name
+        raise ::StateShifter::PersistenceAttributeAlreadyDefined if @persist_attr_name
         @persist_attr_name = attr_name.to_sym
       end
 

@@ -110,6 +110,18 @@ describe 'Malformed state machines' do
     lambda { require_relative '../examples/malformed_events' }.should raise_error(StateShifter::RedifiningEvent, 'submit')
   end
 
+  it 'should complain when the persistence attribute is set after the state machine definition' do
+    lambda { require_relative '../examples/malformed_persistence' }.should raise_error(StateShifter::PersistenceAttributeAlreadyDefined)
+  end
+
+end
+
+describe 'Advanced state machine functionality' do
+
+  before(:each) do
+    @advanced = Advanced.new
+  end
+
   it 'should complain about undefined guards' do
     advanced = Advanced.new
     lambda { advanced.can_start_date_reached?}.should raise_error(StateShifter::GuardMethodUndefined, 'start_date_reached?')
@@ -120,14 +132,6 @@ describe 'Malformed state machines' do
     advanced.forced_start!
     
     lambda { advanced.deadline_reached }.should raise_error(StateShifter::CallbackMethodNotDefined, 'send_notification_to_organizers')
-  end
-
-end
-
-describe 'Advanced state machine functionality' do
-
-  before(:each) do
-    @advanced = Advanced.new
   end
 
   it 'should complain about looping event callbacks not being defined' do

@@ -11,4 +11,5 @@ class ::StateShifter::GuardNotSatisfied < Exception ; end
 class ::StateShifter::CallbackMethodNotDefined < Exception ; end
 class ::StateShifter::RedifiningEvent < Exception ; end
 class ::StateShifter::RedifiningState < Exception ; end
+class ::StateShifter::PersistenceAttributeAlreadyDefined < Exception ; end
 
