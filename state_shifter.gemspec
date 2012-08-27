@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "state_shifter"
-  s.version = "0.7.1"
+  s.version = "0.7.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Bruno Antunes"]
-  s.date = "2012-08-24"
+  s.date = "2012-08-27"
   s.description = "state_shifter is a gem that adds state machine behavior to a class"
   s.email = "sardaukar.siet@gmail.com"
   s.extra_rdoc_files = [
@@ -27,8 +27,8 @@ Gem::Specification.new do |s|
     "VERSION",
     "examples/advanced.rb",
     "examples/malformed_events.rb",
+    "examples/malformed_persistence.rb",
     "examples/malformed_states.rb",
-    "examples/mounted.rb",
     "examples/simple.rb",
     "lib/state_shifter.rb",
     "lib/state_shifter/definition.rb",
@@ -36,9 +36,6 @@ Gem::Specification.new do |s|
     "lib/state_shifter/definition/contents.rb",
     "lib/state_shifter/definition/instance_methods.rb",
     "lib/state_shifter/event.rb",
-    "lib/state_shifter/mountable.rb",
-    "lib/state_shifter/mountable/class_methods.rb",
-    "lib/state_shifter/mountable/instance_methods.rb",
     "lib/state_shifter/state.rb",
     "spec/spec_helper.rb",
     "spec/state_shifter_spec.rb",
@@ -54,6 +51,7 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+      s.add_development_dependency(%q<activerecord>, ["~> 3.2.x"])
       s.add_development_dependency(%q<rspec>, ["~> 2.8.0"])
       s.add_development_dependency(%q<yard>, ["~> 0.7"])
       s.add_development_dependency(%q<redcarpet>, [">= 0"])
@@ -62,6 +60,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.4"])
       s.add_development_dependency(%q<simplecov>, [">= 0"])
     else
+      s.add_dependency(%q<activerecord>, ["~> 3.2.x"])
       s.add_dependency(%q<rspec>, ["~> 2.8.0"])
       s.add_dependency(%q<yard>, ["~> 0.7"])
       s.add_dependency(%q<redcarpet>, [">= 0"])
@@ -71,6 +70,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<simplecov>, [">= 0"])
     end
   else
+    s.add_dependency(%q<activerecord>, ["~> 3.2.x"])
     s.add_dependency(%q<rspec>, ["~> 2.8.0"])
     s.add_dependency(%q<yard>, ["~> 0.7"])
     s.add_dependency(%q<redcarpet>, [">= 0"])
