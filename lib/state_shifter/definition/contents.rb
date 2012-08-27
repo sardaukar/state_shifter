@@ -1,7 +1,5 @@
 module StateShifter
-
   module Definition
-
     class Contents
 
       attr_accessor :states, :initial_state, :events, :on_transition_proc
@@ -79,7 +77,5 @@ module StateShifter
       end
 
     end
-
   end
-
 end

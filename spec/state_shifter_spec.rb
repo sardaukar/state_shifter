@@ -1,7 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 require_relative '../examples/simple'
 require_relative '../examples/advanced'
-require_relative '../examples/mounted'
 
 shared_examples_for 'a simple state machine' do
   
@@ -97,12 +96,6 @@ end
 
 describe Simple do
    
-  it_should_behave_like 'a simple state machine'
-
-end
-
-describe Mounted do
-
   it_should_behave_like 'a simple state machine'
 
 end
