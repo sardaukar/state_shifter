@@ -8,11 +8,8 @@ module StateShifter
         @persist_attr_name = attr_name.to_sym
       end
 
-      def persist_attr_name
-        @persist_attr_name ||= :state
-      end
-
       def state_machine &definition
+        @persist_attr_name ||= :current_state
         @state_machine_definition = Contents.new(&definition)
         
         @state_machine_definition.states.each do |state_name, state_definition|
