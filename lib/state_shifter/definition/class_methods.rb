@@ -43,7 +43,7 @@ module StateShifter
               
                 this_event = state_machine_definition.get(:event, event_name)
                 
-                current_state == this_event.from && !check_guards(event_name).is_a?(Array) 
+                current_state.to_sym == this_event.from.to_sym && !check_guards(event_name).is_a?(Array) 
               
               end
 
