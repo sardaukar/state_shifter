@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "state_shifter"
-  s.version = "0.8.0"
+  s.version = "0.8.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Bruno Antunes"]
-  s.date = "2012-08-27"
+  s.date = "2012-08-28"
   s.description = "state_shifter is a gem that adds state machine behavior to a class"
   s.email = "sardaukar.siet@gmail.com"
   s.extra_rdoc_files = [
@@ -18,7 +18,6 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".document",
-    ".rspec",
     "Gemfile",
     "Gemfile.lock",
     "LICENSE.txt",
@@ -57,7 +56,8 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<activerecord>, ["~> 3.2.x"])
       s.add_development_dependency(%q<sqlite3>, [">= 0"])
-      s.add_development_dependency(%q<rspec>, ["~> 2.8.0"])
+      s.add_development_dependency(%q<rspec-nc>, [">= 0"])
+      s.add_development_dependency(%q<rspec>, ["~> 2.9.0"])
       s.add_development_dependency(%q<yard>, ["~> 0.7"])
       s.add_development_dependency(%q<redcarpet>, [">= 0"])
       s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
@@ -67,7 +67,8 @@ Gem::Specification.new do |s|
     else
       s.add_dependency(%q<activerecord>, ["~> 3.2.x"])
       s.add_dependency(%q<sqlite3>, [">= 0"])
-      s.add_dependency(%q<rspec>, ["~> 2.8.0"])
+      s.add_dependency(%q<rspec-nc>, [">= 0"])
+      s.add_dependency(%q<rspec>, ["~> 2.9.0"])
       s.add_dependency(%q<yard>, ["~> 0.7"])
       s.add_dependency(%q<redcarpet>, [">= 0"])
       s.add_dependency(%q<rdoc>, ["~> 3.12"])
@@ -78,7 +79,8 @@ Gem::Specification.new do |s|
   else
     s.add_dependency(%q<activerecord>, ["~> 3.2.x"])
     s.add_dependency(%q<sqlite3>, [">= 0"])
-    s.add_dependency(%q<rspec>, ["~> 2.8.0"])
+    s.add_dependency(%q<rspec-nc>, [">= 0"])
+    s.add_dependency(%q<rspec>, ["~> 2.9.0"])
     s.add_dependency(%q<yard>, ["~> 0.7"])
     s.add_dependency(%q<redcarpet>, [">= 0"])
     s.add_dependency(%q<rdoc>, ["~> 3.12"])
