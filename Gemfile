@@ -8,7 +8,7 @@ source "http://rubygems.org"
 group :development do
   gem 'activerecord', '~> 3.2.x'
   gem 'sqlite3'
-  gem 'rspec-nc' if RUBY_PLATFORM.downcase.include?('darwin')
+  gem 'rspec-nc'
   gem "rspec", "~> 2.9.0"
   gem "yard", "~> 0.7"
   gem 'redcarpet' 
