@@ -41,14 +41,14 @@ class Advanced
     end
 
     state :notify_stakeholders do
-      on_entry :send_notification_to_stakeholders
+      on_entry :send_notification, :stakeholders, :organizers
       event :stakeholders_notified => :cancelled
     end
 
     state :cancelled
 
     state :notify_pending_users do
-      on_entry :send_notification_to_pending_users
+      on_entry :send_notification, :pending_users
       event :pending_users_notified => :finalized
     end
 
@@ -79,6 +79,10 @@ class Advanced
   end
 
   ###
+
+  def send_notification to
+    #
+  end
 
   def entries_deadline_reached?
     true

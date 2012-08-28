@@ -159,6 +159,23 @@ describe 'Advanced state machine functionality' do
     @advanced.deadline_reached!
   end
 
+  it 'state on_entry callbacks with an argument should work' do
+    @advanced.forced_start
+    @advanced.stub!(:entries_deadline_reached_without_approvals?).and_return(true)
+
+    # method name only with args
+    @advanced.should_receive(:send_notification).with(:pending_users)
+    @advanced.deadline_reached_without_approvals!
+  end
+
+  it 'state on_entry callbacks with an array of arguments should work' do
+    @advanced.forced_start
+
+    # method name only with args
+    @advanced.should_receive(:send_notification).with([:stakeholders, :organizers])
+    @advanced.abort_running_contest!
+  end
+
   it 'the on_transition callback should work' do
     @advanced.should_receive(:benchmark).with(:initialized, :running, :forced_start!, an_instance_of(Float)).and_return(nil)
     @advanced.forced_start!

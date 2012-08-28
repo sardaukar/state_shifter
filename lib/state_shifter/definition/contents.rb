@@ -51,11 +51,12 @@ module StateShifter
         @current_state.events[event_name.to_sym] = this_event
       end
 
-      def on_entry event_name=nil, &proc_contents
+      def on_entry event_name=nil, *event_args, &proc_contents
         if event_name.nil?
           @current_state.entry_callback = proc_contents
         else
           @current_state.entry_callback = event_name
+          @current_state.entry_callback_args = ( event_args.size == 1 ? event_args.first : event_args )
         end
       end
 
