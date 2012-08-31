@@ -55,7 +55,7 @@ module StateShifter
 
               define_method "#{event_name}" do |bang=false|
 
-                if current_state != event_definition.from
+                if current_state.to_sym != event_definition.from.to_sym
                   if bang  
                     halt("you cannot transition from #{current_state} via #{event_name}")
                   else
