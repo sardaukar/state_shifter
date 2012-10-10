@@ -7,11 +7,11 @@ module StateShifter
       end
 
       def get_current_state
-        instance_variable_defined?(:@current_state) ? @current_state : state_machine_definition.initial_state.name.to_sym
+        instance_variable_defined?(:@current_state) ? @current_state.to_sym : state_machine_definition.initial_state.name.to_sym
       end
 
       def set_current_state value
-        @current_state = value
+        @current_state = value.to_sym
       end
 
       def state_machine_definition
@@ -39,7 +39,7 @@ module StateShifter
       end
 
       def names_for what
-        state_machine_definition.send(what).collect {|name, definition| name }
+        state_machine_definition.send(what).collect {|name, definition| name.to_sym }
       end
 
       def check_event_callbacks event_name
@@ -67,7 +67,7 @@ module StateShifter
           end
         else
           self.instance_exec(old_state, trigger.to_sym, &proc_or_method_name)
-        end        
+        end
       end
 
       def transition args
@@ -75,13 +75,13 @@ module StateShifter
 
         # BOOP!
         old_state = get_current_state
-        set_current_state args[:to].to_sym
+        set_current_state args[:to]
         #
 
         check_event_callbacks(args[:trigger]) if state_machine_definition.get(:event, args[:trigger]).has_callback?
 
         call_state_entry_callback(args[:trigger], old_state) if current_state_def.has_entry_callback?
-        
+
         self.instance_exec(old_state, get_current_state, args[:trigger].to_sym, (Time.now - _start), &state_machine_definition.on_transition_proc) if state_machine_definition.has_on_transition_proc?
 
         true

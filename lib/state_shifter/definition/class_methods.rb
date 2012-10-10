@@ -12,9 +12,9 @@ module StateShifter
       def state_machine &definition
         @persist_attr_name ||= :current_state
         @state_machine_definition = Contents.new(&definition)
-        
+
         @state_machine_definition.states.each do |state_name, state_definition|
-          
+
           module_eval do
 
             define_method "_next_states" do |from_state, *options|
@@ -34,46 +34,46 @@ module StateShifter
             end
 
             define_method "#{state_name}?" do
-              current_state == state_name
+              current_state.to_sym == state_name
             end
 
             state_machine_definition.events.each do |event_name, event_definition|
 
               define_method "can_#{event_name}?" do
-              
+
                 this_event = state_machine_definition.get(:event, event_name)
-                
-                current_state.to_sym == this_event.from.to_sym && !check_guards(event_name).is_a?(Array) 
-              
+
+                current_state.to_sym == this_event.from.to_sym && !check_guards(event_name).is_a?(Array)
+
               end
 
               define_method "#{event_name}!" do
 
                 self.send event_name.to_sym, true
-              
+
               end
 
               define_method "#{event_name}" do |bang=false|
 
                 if current_state.to_sym != event_definition.from.to_sym
-                  if bang  
+                  if bang
                     halt("you cannot transition from #{current_state} via #{event_name}")
                   else
                     return false
                   end
                 end
-                
+
                 if (failed_guards = check_guards(event_name)).is_a?(Array)
                   if bang
                     failed_guards.delete_at(0)
                     raise ::StateShifter::GuardNotSatisfied, "#{failed_guards.join}"
-                  else 
+                  else
                     return false
                   end
                 end
 
                 transition :to => ( event_definition.to.nil? ? current_state : event_definition.to ), :trigger => ( bang ? "#{event_name}!" : event_name )
-               
+
               end
 
             end

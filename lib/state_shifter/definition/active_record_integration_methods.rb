@@ -2,7 +2,7 @@ module StateShifter
   module Definition
     module ActiveRecordIntegrationMethods
 
-      class ::StateShifter::Definition::StatePersistenceAttributeNotPresent < RuntimeError; end 
+      class ::StateShifter::Definition::StatePersistenceAttributeNotPresent < RuntimeError; end
 
       def check_attr_presence
         raise StatePersistenceAttributeNotPresent unless self.attribute_names.include? self.class.persist_attr_name.to_s

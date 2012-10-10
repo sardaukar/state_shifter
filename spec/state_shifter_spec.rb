@@ -5,7 +5,7 @@ require_relative '../examples/review'
 require_relative '../examples/review_custom_persistence'
 
 shared_examples_for 'a simple state machine' do
-  
+
   before(:each) do
     @state_machine = described_class.new
     @state_machine.save if @state_machine.class < ActiveRecord::Base
@@ -99,7 +99,7 @@ shared_examples_for 'a simple state machine' do
 end
 
 describe Simple do
-   
+
   it_should_behave_like 'a simple state machine'
 
 end
@@ -134,7 +134,7 @@ describe 'Advanced state machine functionality' do
   it 'should complain about undefined callbacks on state entry' do
     advanced = Advanced.new
     advanced.forced_start!
-    
+
     lambda { advanced.deadline_reached }.should raise_error(StateShifter::CallbackMethodNotDefined, 'send_notification_to_organizers')
   end
 
@@ -144,7 +144,7 @@ describe 'Advanced state machine functionality' do
 
   it 'should call looping event callbacks' do
     @advanced.stub!(:handle_start_date_changed)
-    
+
     @advanced.should_receive(:handle_start_date_changed)
     @advanced.start_date_changed
   end
@@ -199,6 +199,21 @@ describe Review do
 
   it_should_behave_like 'a simple state machine'
 
+  it "should tolerate strings as state names" do
+    state_machine = described_class.new
+    state_machine.save
+
+    state_machine.current_state.should == :new
+    state_machine.update_attribute(:current_state, "new")
+
+    state_machine.new?.should be_true
+
+    state_machine.submit
+    state_machine.initial_state.should == :new
+
+    state_machine.current_state.should == :awaiting_review
+  end
+
 end
 
 describe ReviewCustomPersistence do
@@ -216,6 +231,21 @@ describe ReviewCustomPersistence do
   end
 
   it_should_behave_like 'a simple state machine'
+
+  it "should tolerate strings as state names" do
+    state_machine = described_class.new
+    state_machine.save
+
+    state_machine.current_state.should == :new
+    state_machine.update_attribute(:stamp, "new")
+
+    state_machine.new?.should be_true
+
+    state_machine.submit
+    state_machine.initial_state.should == :new
+
+    state_machine.current_state.should == :awaiting_review
+  end
 
 end
 
