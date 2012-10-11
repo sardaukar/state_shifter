@@ -19,7 +19,8 @@ module StateShifter
     end
 
     def draw(graph, options = {})
-      graph.add_edges(@from.to_s, @to.to_s)
+      to = @to ? @to : @from
+      graph.add_edges(@from.to_s, to.to_s, :label => @name.to_s)
     end
 
   end

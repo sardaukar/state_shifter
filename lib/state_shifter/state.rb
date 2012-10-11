@@ -33,7 +33,7 @@ module StateShifter
                             :shape => final? ? 'doublecircle' : 'ellipse'
                            )
 
-      #graph.add_edges(graph.add_nodes('starting_state', :shape => 'point'), node) if initial?
+      graph.add_edges(graph.add_nodes('starting_state', :shape => 'point'), node) if initial?
 
       node
     end

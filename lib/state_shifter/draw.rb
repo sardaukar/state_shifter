@@ -24,12 +24,12 @@ module StateShifter
         graphvizVersion = Constants::RGV_VERSION.split('.')
 
         if graphvizVersion[0] == '0' && graphvizVersion[1] == '9' && graphvizVersion[2] == '0'
-          outputOptions = {:output => options[:format], :file => options[:output_filename]}
+          output_options = {:output => options[:format], :file => options[:output_filename]}
         else
-          outputOptions = {options[:format] => options[:output_filename]}
+          output_options = {options[:format] => options[:output_filename]}
         end
 
-        graph.output(outputOptions)
+        graph.output(output_options)
       end
     end
   end
