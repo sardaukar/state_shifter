@@ -1,9 +1,5 @@
 module StateShifter
 
-$:.unshift(File.dirname(__FILE__) + '/../..')
-require 'examples/simple'
-require 'pry'
-
   class Draw
 
     gem 'ruby-graphviz', '>=0.9.0'
