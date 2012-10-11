@@ -7,6 +7,8 @@ require 'state_shifter/definition/instance_methods'
 require 'state_shifter/definition/active_record_integration_methods'
 require 'state_shifter/draw'
 
+require 'state_shifter/railtie' if defined?(Rails)
+
 module StateShifter
 
   class TransitionHalted < Exception ; end
