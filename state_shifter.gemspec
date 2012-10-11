@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "state_shifter"
-  s.version = "0.8.1"
+  s.version = "0.9.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Bruno Antunes"]
-  s.date = "2012-08-28"
+  s.date = "2012-10-11"
   s.description = "state_shifter is a gem that adds state machine behavior to a class"
   s.email = "sardaukar.siet@gmail.com"
   s.extra_rdoc_files = [
@@ -38,8 +38,11 @@ Gem::Specification.new do |s|
     "lib/state_shifter/definition/class_methods.rb",
     "lib/state_shifter/definition/contents.rb",
     "lib/state_shifter/definition/instance_methods.rb",
+    "lib/state_shifter/draw.rb",
     "lib/state_shifter/event.rb",
     "lib/state_shifter/state.rb",
+    "lib/tasks/state_shifter.rake",
+    "lib/tasks/state_shifter.rb",
     "spec/spec_helper.rb",
     "spec/state_shifter_spec.rb",
     "state_shifter.gemspec"
@@ -64,6 +67,8 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<bundler>, ["~> 1.1.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.4"])
       s.add_development_dependency(%q<simplecov>, [">= 0"])
+      s.add_development_dependency(%q<pry>, [">= 0"])
+      s.add_development_dependency(%q<ruby-graphviz>, [">= 0"])
     else
       s.add_dependency(%q<activerecord>, ["~> 3.2.x"])
       s.add_dependency(%q<sqlite3>, [">= 0"])
@@ -75,6 +80,8 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<bundler>, ["~> 1.1.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
       s.add_dependency(%q<simplecov>, [">= 0"])
+      s.add_dependency(%q<pry>, [">= 0"])
+      s.add_dependency(%q<ruby-graphviz>, [">= 0"])
     end
   else
     s.add_dependency(%q<activerecord>, ["~> 3.2.x"])
@@ -87,6 +94,8 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<bundler>, ["~> 1.1.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
     s.add_dependency(%q<simplecov>, [">= 0"])
+    s.add_dependency(%q<pry>, [">= 0"])
+    s.add_dependency(%q<ruby-graphviz>, [">= 0"])
   end
 end
 
