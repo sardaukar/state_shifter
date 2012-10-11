@@ -20,6 +20,8 @@ shared_examples_for 'a simple state machine' do
     @state_machine.initial_state.should == :new
     @state_machine.current_state.should == :new
 
+    @state_machine.current_state_def.initial?.should be_true
+
     @state_machine.submit
     @state_machine.initial_state.should == :new
 
@@ -78,6 +80,8 @@ shared_examples_for 'a simple state machine' do
     @state_machine.next_states.should == [:awaiting_review]
     @state_machine.transitionable_states.should == [:awaiting_review]
 
+    @state_machine.current_state_def.final?.should be_false
+
     @state_machine.submit!
     @state_machine.next_states.should == [:being_reviewed]
     @state_machine.transitionable_states.should == [:being_reviewed]
@@ -89,6 +93,8 @@ shared_examples_for 'a simple state machine' do
     @state_machine.accept
     @state_machine.next_states.should == []
     @state_machine.transitionable_states.should == []
+
+    @state_machine.current_state_def.final?.should be_true
   end
 
   it 'should respect proper transition precedence' do

@@ -11,8 +11,12 @@ module StateShifter
       end
 
       def state name, &events_and_stuff
-        this_state = State.new(name)
-        @initial_state = this_state if @states.empty? # first state declared is the initial one
+        if @states.empty? # first state declared is the initial one
+          this_state = State.new(name, true)
+          @initial_state = this_state
+        else
+          this_state = State.new(name)
+        end
 
         raise RedifiningState, this_state.name if @states.has_key?(this_state.name.to_sym)
 

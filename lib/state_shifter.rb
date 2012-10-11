@@ -5,6 +5,7 @@ require 'state_shifter/definition/contents'
 require 'state_shifter/definition/class_methods'
 require 'state_shifter/definition/instance_methods'
 require 'state_shifter/definition/active_record_integration_methods'
+require 'state_shifter/draw'
 
 module StateShifter
 

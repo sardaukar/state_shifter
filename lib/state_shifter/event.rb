@@ -18,5 +18,9 @@ module StateShifter
       !@callback.nil?
     end
 
+    def draw(graph, options = {})
+      graph.add_edges(@from.to_s, @to.to_s)
+    end
+
   end
 end
