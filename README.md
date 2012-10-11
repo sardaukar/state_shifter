@@ -16,7 +16,7 @@ Usage
 
 An example of state machine definition possible with this gem:
 
-```
+```ruby
 class Simple
   include StateShifter::Definition
 
@@ -52,9 +52,9 @@ class Simple
 end
 ```
 
-Basically, you need to include ```StateShifter::Definition``` and have a ```state_machine``` block. The initial state is the first one on the definition, and events are in the form of ```event event_name => next_state_name```. Events can have guards, and also refer back to the same state, in which case you simple omit the ```next_state_name``` - this is pointless without a ```:call``` option passed to it, as the next example shows.
+Basically, you need to have a ```state_machine``` block with a collection of states and events. The initial state is the first one on the definition, and events are in the form of ```event :event_name => :next_state_name```. Events can have guards, and also refer back to the same state, in which case you simple omit the ```next_state_name``` - mostly to have "touch-and-go" events that just execute a method specified in the ```:call``` option passed to it, and remain in the same state. The next example shows relevant usage of it.
 
-```
+```ruby
 class Advanced
   include StateShifter::Definition
 
@@ -152,6 +152,17 @@ class Advanced
 
 end
 ```
+
+Plagiarism alert
+----------------
+
+This gem draws _heavy_ inspiration from both [pluginaweek's state_machine](https://github.com/pluginaweek/state_machine) and [mdh's ssm](https://github.com/mdh/ssm) gems. I liked both of them, but the DSL syntax was not 100% to my liking. Kudos to them.
+
+Future
+------
+
+I want to add "mountable" state machines as per ssm's gem, to have a clear separation which would ease testing, but haven't had the chance yet.
+
 
 Contributing to state\_shifter
 ------------------------------
