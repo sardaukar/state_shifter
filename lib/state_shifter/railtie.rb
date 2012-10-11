@@ -4,7 +4,7 @@ module StateShifter
   class Railtie < ::Rails::Railtie
 
     rake_tasks do
-      require 'lib/tasks/state_shifter.rake'
+      require_relative '../tasks/state_shifter.rake'
     end
 
   end
