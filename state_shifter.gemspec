@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "state_shifter"
-  s.version = "0.9.0"
+  s.version = "0.9.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Bruno Antunes"]
@@ -42,7 +42,6 @@ Gem::Specification.new do |s|
     "lib/state_shifter/event.rb",
     "lib/state_shifter/state.rb",
     "lib/tasks/state_shifter.rake",
-    "lib/tasks/state_shifter.rb",
     "spec/spec_helper.rb",
     "spec/state_shifter_spec.rb",
     "state_shifter.gemspec"
