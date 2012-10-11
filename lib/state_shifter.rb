@@ -6,11 +6,14 @@ require 'state_shifter/definition/class_methods'
 require 'state_shifter/definition/instance_methods'
 require 'state_shifter/definition/active_record_integration_methods'
 
-class ::StateShifter::TransitionHalted < Exception ; end
-class ::StateShifter::GuardMethodUndefined < Exception ; end
-class ::StateShifter::GuardNotSatisfied < Exception ; end
-class ::StateShifter::CallbackMethodNotDefined < Exception ; end
-class ::StateShifter::RedifiningEvent < Exception ; end
-class ::StateShifter::RedifiningState < Exception ; end
-class ::StateShifter::PersistenceAttributeAlreadyDefined < Exception ; end
+module StateShifter
 
+  class TransitionHalted < Exception ; end
+  class GuardMethodUndefined < Exception ; end
+  class GuardNotSatisfied < Exception ; end
+  class CallbackMethodNotDefined < Exception ; end
+  class RedifiningEvent < Exception ; end
+  class RedifiningState < Exception ; end
+  class PersistenceAttributeAlreadyDefined < Exception ; end
+
+end

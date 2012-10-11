@@ -47,7 +47,7 @@ module StateShifter
         begin
           self.send event_def.callback
         rescue NoMethodError
-          raise ::StateShifter::CallbackMethodNotDefined, event_def.callback
+          raise CallbackMethodNotDefined, event_def.callback
         end
       end
 
@@ -63,7 +63,7 @@ module StateShifter
           begin
             self.send proc_or_method_name, method_args
           rescue NoMethodError
-            raise ::StateShifter::CallbackMethodNotDefined, proc_or_method_name
+            raise CallbackMethodNotDefined, proc_or_method_name
           end
         else
           self.instance_exec(old_state, trigger.to_sym, &proc_or_method_name)
@@ -88,7 +88,7 @@ module StateShifter
       end
 
       def halt message
-        raise ::StateShifter::TransitionHalted, message
+        raise TransitionHalted, message
       end
 
       def check_guards event_name
@@ -99,7 +99,7 @@ module StateShifter
             begin
               return false, guard unless self.send(guard.to_sym)
             rescue NoMethodError
-              raise ::StateShifter::GuardMethodUndefined, guard
+              raise GuardMethodUndefined, guard
             end
           end
           true
