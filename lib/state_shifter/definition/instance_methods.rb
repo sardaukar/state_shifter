@@ -61,7 +61,11 @@ module StateShifter
         if proc_or_method_name.is_a?(Symbol)
           method_args = current_state_def.entry_callback_args
           begin
-            self.send proc_or_method_name, method_args
+            if method_args
+              self.send proc_or_method_name, method_args
+            else
+              self.send proc_or_method_name
+            end
           rescue NoMethodError
             raise CallbackMethodNotDefined, proc_or_method_name
           end

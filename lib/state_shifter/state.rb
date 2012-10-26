@@ -10,7 +10,7 @@ module StateShifter
       @events = {}
       @initial = initial
       @entry_callback = nil
-      @entry_callback_args = []
+      @entry_callback_args = nil
     end
 
     def has_entry_callback?

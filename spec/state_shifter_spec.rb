@@ -161,7 +161,7 @@ describe 'Advanced state machine functionality' do
     @advanced.forced_start
 
     # method name only
-    @advanced.should_receive(:send_notification_to_organizers)
+    @advanced.should_receive(:send_notification_to_organizers).with(no_args())
     @advanced.deadline_reached!
   end
 

@@ -60,7 +60,7 @@ module StateShifter
           @current_state.entry_callback = proc_contents
         else
           @current_state.entry_callback = event_name
-          @current_state.entry_callback_args = ( event_args.size == 1 ? event_args.first : event_args )
+          @current_state.entry_callback_args = ( event_args.size == 1 ? event_args.first : event_args ) unless event_args.empty?
         end
       end
 
