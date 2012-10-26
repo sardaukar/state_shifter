@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "state_shifter"
-  s.version = "1.0.0"
+  s.version = "1.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Bruno Antunes"]
-  s.date = "2012-10-11"
+  s.date = "2012-10-26"
   s.description = "state_shifter is a gem that adds state machine behavior to a class"
   s.email = "sardaukar.siet@gmail.com"
   s.extra_rdoc_files = [
