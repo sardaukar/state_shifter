@@ -1,16 +1,22 @@
 class Advanced
   include StateShifter::Definition
 
-  ### 
+  ###
 
   state_machine do
 
     state :initialized do
-
       event :start_date_changed, :call => :handle_start_date_changed
       event :forced_start => :running
       event :start_date_reached => :running, :if => :start_date_reached?
       event :abort_initialized_contest => :finalized
+      event :event_associated => :preparing
+    end
+
+    state :preparing do
+      on_entry :prepare
+
+      event :all_done => :running
     end
 
     state :running do
@@ -19,7 +25,7 @@ class Advanced
         running_entry previous_state, trigger_event
       end
 
-      event :abort_running_contest => :notify_stakeholders 
+      event :abort_running_contest => :notify_stakeholders
       event :changed_properties
       event :keep_users_engaged
       event :deadline_reached => :notify_organizers, :if => :entries_deadline_reached?
@@ -30,6 +36,7 @@ class Advanced
 
     state :notify_organizers do
       on_entry :send_notification_to_organizers
+
       event :organizers_notified => :awaiting_organizer_reply
     end
 
@@ -42,6 +49,7 @@ class Advanced
 
     state :notify_stakeholders do
       on_entry :send_notification, :stakeholders, :organizers
+
       event :stakeholders_notified => :cancelled
     end
 
@@ -79,6 +87,10 @@ class Advanced
   end
 
   ###
+
+  def prepare
+    all_done!
+  end
 
   def send_notification to
     #

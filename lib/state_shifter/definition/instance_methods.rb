@@ -82,11 +82,11 @@ module StateShifter
         set_current_state args[:to]
         #
 
-        check_event_callbacks(args[:trigger]) if state_machine_definition.get(:event, args[:trigger]).has_callback?
+        self.instance_exec(old_state, get_current_state, args[:trigger].to_sym, (Time.now - _start), &state_machine_definition.on_transition_proc) if state_machine_definition.has_on_transition_proc?
 
         call_state_entry_callback(args[:trigger], old_state) if current_state_def.has_entry_callback?
 
-        self.instance_exec(old_state, get_current_state, args[:trigger].to_sym, (Time.now - _start), &state_machine_definition.on_transition_proc) if state_machine_definition.has_on_transition_proc?
+        check_event_callbacks(args[:trigger]) if state_machine_definition.get(:event, args[:trigger]).has_callback?
 
         true
       end

@@ -133,15 +133,13 @@ describe 'Advanced state machine functionality' do
   end
 
   it 'should complain about undefined guards' do
-    advanced = Advanced.new
-    lambda { advanced.can_start_date_reached?}.should raise_error(StateShifter::GuardMethodUndefined, 'start_date_reached?')
+    lambda { @advanced.can_start_date_reached?}.should raise_error(StateShifter::GuardMethodUndefined, 'start_date_reached?')
   end
 
   it 'should complain about undefined callbacks on state entry' do
-    advanced = Advanced.new
-    advanced.forced_start!
+    @advanced.forced_start!
 
-    lambda { advanced.deadline_reached }.should raise_error(StateShifter::CallbackMethodNotDefined, 'send_notification_to_organizers')
+    lambda { @advanced.deadline_reached }.should raise_error(StateShifter::CallbackMethodNotDefined, 'send_notification_to_organizers')
   end
 
   it 'should complain about looping event callbacks not being defined' do
@@ -185,6 +183,12 @@ describe 'Advanced state machine functionality' do
   it 'the on_transition callback should work' do
     @advanced.should_receive(:benchmark).with(:initialized, :running, :forced_start!, an_instance_of(Float)).and_return(nil)
     @advanced.forced_start!
+  end
+
+  it 'the on_transition callback should work in the proper order' do
+    @advanced.should_receive(:benchmark).ordered.with(:initialized, :preparing, :event_associated!, an_instance_of(Float)).and_return(nil)
+    @advanced.should_receive(:benchmark).ordered.with(:preparing, :running, :all_done!, an_instance_of(Float)).and_return(nil)
+    @advanced.event_associated!
   end
 
 end
