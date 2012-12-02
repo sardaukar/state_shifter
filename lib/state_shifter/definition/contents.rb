@@ -2,11 +2,12 @@ module StateShifter
   module Definition
     class Contents
 
-      attr_accessor :states, :initial_state, :events, :on_transition_proc
+      attr_accessor :states, :initial_state, :events, :state_tags, :on_transition_proc
 
       def initialize &definition
-        @states = {}
-        @events = {}
+        @states     = {}
+        @events     = {}
+        @state_tags = {}
         instance_eval &definition if block_given?
       end
 
@@ -23,6 +24,13 @@ module StateShifter
         @states[this_state.name.to_sym] = this_state
         @current_state = this_state
         instance_eval &events_and_stuff if events_and_stuff
+      end
+
+      def tags *names
+        names.each do |name|
+          @state_tags[name] ||= []
+          @state_tags[name] << @current_state.name
+        end
       end
 
       def event hash_or_sym, hash=nil
