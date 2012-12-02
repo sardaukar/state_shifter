@@ -224,6 +224,28 @@ describe Review do
     state_machine.current_state.should == :awaiting_review
   end
 
+  it "should have tag methods" do
+    described_class.reviewable_states.should eq([:new, :awaiting_review, :being_reviewed])
+
+    state_machine = described_class.new
+    state_machine.save
+
+    state_machine.reviewable?.should be_true
+    state_machine.processing?.should be_false
+
+    state_machine.submit
+    state_machine.reviewable?.should be_true
+    state_machine.processing?.should be_true
+
+    state_machine.review!
+    state_machine.reviewable?.should be_true
+    state_machine.processing?.should be_true
+
+    state_machine.accept!
+    state_machine.reviewable?.should be_false
+    state_machine.processing?.should be_false
+  end
+
 end
 
 describe ReviewCustomPersistence do
