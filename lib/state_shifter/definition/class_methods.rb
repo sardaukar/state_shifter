@@ -2,7 +2,7 @@ module StateShifter
   module Definition
     module ClassMethods
 
-      attr_accessor :state_machine_definition, :persist_attr_name
+      attr_accessor :state_machine_definition, :persist_attr_name, :_include_state_scopes
 
       def persist_attribute attr_name
         raise PersistenceAttributeAlreadyDefined if @persist_attr_name
@@ -15,6 +15,7 @@ module StateShifter
 
         @state_machine_definition.states.each { |name, definition| _load_state(name, definition) }
         @state_machine_definition.state_tags.each { |tag, states|  _load_tag(tag, states) }
+        ActiveRecordIntegrationMethods.include_state_scopes(self) if _include_state_scopes
       end
 
       private
