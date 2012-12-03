@@ -207,6 +207,10 @@ describe Review do
     end
   end
 
+  after(:each) do
+    described_class.destroy_all
+  end
+
   it_should_behave_like 'a simple state machine'
 
   it "should tolerate strings as state names" do
@@ -244,6 +248,15 @@ describe Review do
     state_machine.accept!
     state_machine.reviewable?.should be_false
     state_machine.processing?.should be_false
+  end
+
+  it "should have state scopes" do
+    state_machine = described_class.new
+    state_machine.save
+    state_machine.submit
+
+    described_class.awaiting_review.size.should eq(1)
+    described_class.reviewable.size.should eq(1)
   end
 
 end
