@@ -136,16 +136,6 @@ describe 'Advanced state machine functionality' do
     lambda { @advanced.can_start_date_reached?}.should raise_error(StateShifter::GuardMethodUndefined, 'start_date_reached?')
   end
 
-  it 'should complain about undefined callbacks on state entry' do
-    @advanced.forced_start!
-
-    lambda { @advanced.deadline_reached }.should raise_error(StateShifter::CallbackMethodNotDefined, 'send_notification_to_organizers')
-  end
-
-  it 'should complain about looping event callbacks not being defined' do
-    lambda { @advanced.start_date_changed }.should raise_error(StateShifter::CallbackMethodNotDefined, 'handle_start_date_changed')
-  end
-
   it 'should call looping event callbacks' do
     @advanced.stub!(:handle_start_date_changed)
 

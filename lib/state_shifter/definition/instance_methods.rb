@@ -44,11 +44,8 @@ module StateShifter
 
       def check_event_callbacks event_name
         event_def = state_machine_definition.get(:event, event_name)
-        begin
-          self.send event_def.callback
-        rescue NoMethodError
-          raise CallbackMethodNotDefined, event_def.callback
-        end
+
+        self.send event_def.callback
       end
 
       def current_state_def
@@ -60,15 +57,13 @@ module StateShifter
 
         if proc_or_method_name.is_a?(Symbol)
           method_args = current_state_def.entry_callback_args
-          begin
-            if method_args
-              self.send proc_or_method_name, method_args
-            else
-              self.send proc_or_method_name
-            end
-          rescue NoMethodError
-            raise CallbackMethodNotDefined, proc_or_method_name
+
+          if method_args
+            self.send proc_or_method_name, method_args
+          else
+            self.send proc_or_method_name
           end
+
         else
           self.instance_exec(old_state, trigger.to_sym, &proc_or_method_name)
         end
