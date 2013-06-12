@@ -94,7 +94,7 @@ module StateShifter
             end
 
             define_method "#{tag}?" do
-              states.include? current_state
+              states.map(&:to_s).include? current_state.to_s
             end
 
           end
