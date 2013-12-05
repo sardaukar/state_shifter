@@ -7,13 +7,13 @@ module StateShifter
       def self.include_state_scopes(base)
         base.state_machine_definition.states.each do |name, definition|
           base.class_eval do
-            scope name, where(persist_attr_name => name) unless respond_to?(name)
+            scope name, -> { where(persist_attr_name => name) } unless respond_to?(name)
           end
         end
 
         base.state_machine_definition.state_tags.each do |name, states|
           base.class_eval do
-            scope name, where(persist_attr_name => states) unless respond_to?(name)
+            scope name, -> { where(persist_attr_name => states) } unless respond_to?(name)
           end
         end
       end
