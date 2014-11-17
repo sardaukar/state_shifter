@@ -1,7 +1,7 @@
 source "http://rubygems.org"
 
 group :development do
-  gem 'activerecord', '~> 4.0.3'
+  gem 'activerecord', '~> 4.0.9'
   gem 'sqlite3'
   gem "rspec"
   gem "yard", "~> 0.7"
