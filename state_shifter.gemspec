@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "state_shifter"
-  s.version = "1.0.3"
+  s.version = "1.0.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Bruno Antunes"]
@@ -23,7 +23,6 @@ Gem::Specification.new do |s|
     "LICENSE.txt",
     "README.md",
     "Rakefile",
-    "VERSION",
     "examples/advanced.rb",
     "examples/malformed_events.rb",
     "examples/malformed_persistence.rb",
@@ -61,7 +60,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<sqlite3>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
       s.add_development_dependency(%q<yard>, ["~> 0.7"])
-      s.add_development_dependency(%q<redcarpet>, [">= 0"])
+      s.add_development_dependency(%q<redcarpet>, [">= 3.2.3"])
       s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_development_dependency(%q<bundler>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.4"])
@@ -73,25 +72,27 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<sqlite3>, [">= 0"])
       s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<yard>, ["~> 0.7"])
-      s.add_dependency(%q<redcarpet>, [">= 0"])
+      s.add_dependency(%q<redcarpet>, [">= 3.2.3"])
       s.add_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_dependency(%q<bundler>, [">= 0"])
       s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
       s.add_dependency(%q<simplecov>, [">= 0"])
       s.add_dependency(%q<pry>, [">= 0"])
       s.add_dependency(%q<ruby-graphviz>, [">= 0"])
+      s.add_dependency(%q<json>, [">= 1.8.2"])
     end
   else
     s.add_dependency(%q<activerecord>, ["~> 3.2.x"])
     s.add_dependency(%q<sqlite3>, [">= 0"])
     s.add_dependency(%q<rspec>, [">= 0"])
     s.add_dependency(%q<yard>, ["~> 0.7"])
-    s.add_dependency(%q<redcarpet>, [">= 0"])
+    s.add_dependency(%q<redcarpet>, [">= 3.2.3"])
     s.add_dependency(%q<rdoc>, ["~> 3.12"])
     s.add_dependency(%q<bundler>, [">= 0"])
     s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
     s.add_dependency(%q<simplecov>, [">= 0"])
     s.add_dependency(%q<pry>, [">= 0"])
     s.add_dependency(%q<ruby-graphviz>, [">= 0"])
+    s.add_dependency(%q<json>, [">= 1.8.2"])
   end
 end
