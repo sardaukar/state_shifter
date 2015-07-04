@@ -9,10 +9,11 @@ group :development do
   gem 'redcarpet', '~> 3.2', '>= 3.2.3'
   gem "rdoc", "~> 4.0"
   gem "bundler", '~> 1.7', '>= 1.7.12'
-  gem "jeweler", '~> 1.8', '>= 1.8.4'
+  gem "jeweler", '~> 2.0'
   gem "simplecov", '~> 0'
   gem 'pry', '~> 0'
   gem 'ruby-graphviz', '~> 1.2', '>= 1.2.2'
   gem 'json', '~> 1.8', '>= 1.8.2'
   gem 'i18n', '~> 0.6', '>= 0.6.6'
+	gem 'nokogiri', '~> 1.5.11'
 end
