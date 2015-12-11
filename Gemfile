@@ -15,5 +15,5 @@ group :development do
   gem 'ruby-graphviz', '~> 1.2', '>= 1.2.2'
   gem 'json', '~> 1.8', '>= 1.8.2'
   gem 'i18n', '~> 0.6', '>= 0.6.6'
-	gem 'nokogiri', '>= 1.6.3'
+	gem 'nokogiri', '~> 1.6.6.4'
 end
