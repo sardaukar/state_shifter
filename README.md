@@ -1,6 +1,10 @@
 state\_shifter
 ==============
 
+-----------------------------------------
+**NOTE** This gem has been deprecated, and will no longer be updated. I wrote a [new one](https://github.com/sardaukar/strict_machine)
+-----------------------------------------
+
 This gem makes it easy to incorporate state machine behavior in a Ruby class.
 
 Features include:
